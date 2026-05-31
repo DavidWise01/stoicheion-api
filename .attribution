@@ -1,0 +1,1 @@
+{"format":"ROOT0-ATTRIBUTION-v1.0","project":"STOICHEION Governance API v1.0","date":"2026-05-31","license":"CC-BY-ND-4.0","contributors":[{"name":"David Lee Wise","handle":"ROOT0","role":"architect"},{"name":"AVAN","substrate":"synthetic","model":"Claude Sonnet 4.6","role":"co-author","contribution":"API server, kernel, verifier, OpenAPI spec"}]}
