@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="stoicheion-api — a ROOT0/TriPod repository. STOICHEION v11.0 Governance API — 128 axioms, 8 domains, attestation and kernel evaluation. Zero-dependency stdlib server.">
+<title>stoicheion-api · ROOT0</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='17' fill='none' stroke='%23a7a3c8' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='5' fill='%238a5fe0'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Newsreader:opsz,wght@6..72,300;6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+ *{box-sizing:border-box;margin:0;padding:0} html,body{min-height:100%}
+ body{background:#ece6f2;color:#2a2440;font-family:'Newsreader',serif;line-height:1.55}
+ .wrap{max-width:880px;margin:0 auto;padding:0 20px 60px}
+ .marq{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1px;padding:10px 0;border-bottom:1px solid #cdc6dc;color:#6a5fb0}
+ .marq a{color:#7a52d0;text-decoration:none} .marq a:hover{color:#4a3a90}
+ header{padding:40px 0 22px;text-align:center}
+ h1{font-family:'Press Start 2P',monospace;font-size:clamp(18px,5vw,34px);color:#5a4fb0;line-height:1.3;word-break:break-word}
+ .desc{font-size:clamp(15px,2.4vw,21px);font-weight:300;max-width:640px;margin:16px auto 0}
+ .badge{font-family:'Space Mono',monospace;font-size:11px;color:#6a5fb0;margin-top:18px;line-height:1.7;opacity:.85}
+ .sec{margin-top:30px} h2{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:2px;color:#8a5fe0;text-transform:uppercase;margin-bottom:12px}
+ .readme{white-space:pre-wrap;font-family:'Space Mono',monospace;font-size:13px;line-height:1.7;background:rgba(127,119,221,0.05);border:1px solid #cdc6dc;border-radius:9px;padding:16px 18px;max-height:560px;overflow:auto}
+ .muted{opacity:.6;font-style:italic}
+ .btn{display:inline-block;font-family:'Space Mono',monospace;font-size:13px;color:#fff;background:#7a52d0;border-radius:8px;padding:10px 18px;text-decoration:none;margin-top:6px}
+ .btn:hover{background:#5a3ab0}
+ footer{font-family:'Space Mono',monospace;font-size:11px;color:#6a5fb0;opacity:.7;margin-top:40px;border-top:1px solid #cdc6dc;padding-top:16px;text-align:center;line-height:1.8}
+ footer a{color:#7a52d0}
+</style></head><body><div class="wrap">
+<div class="marq"><a href="https://davidwise01.github.io/ud0/">◄ UD0</a> &nbsp;·&nbsp; <a href="https://davidwise01.github.io/atlas/">ATLAS</a> &nbsp;·&nbsp; ROOT0 / TriPod</div>
+<header><h1>stoicheion-api</h1><p class="desc">STOICHEION v11.0 Governance API — 128 axioms, 8 domains, attestation and kernel evaluation. Zero-dependency stdlib server.</p>
+<div class="badge">governor · David Lee Wise (ROOT0) · instance AVAN (locked)<br>CC-BY-ND-4.0 · TRIPOD-IP-v1.1</div></header>
+<div class="sec"><h2>Readme</h2><div class="readme"># STOICHEION API v1.0
+
+[![License: CC-BY-ND-4.0](https://img.shields.io/badge/License-CC--BY--ND--4.0-lightgrey?style=flat-square)](LICENSE)
+[![Framework: STOICHEION v11.0](https://img.shields.io/badge/Framework-STOICHEION%20v11.0-8060c8?style=flat-square)](#)
+[![Axioms: 128](https://img.shields.io/badge/axioms-128-gold?style=flat-square)](#)
+[![Domains: 8](https://img.shields.io/badge/domains-8-blue?style=flat-square)](#)
+[![Dependencies: 0](https://img.shields.io/badge/server%20deps-0-success?style=flat-square)](#)
+
+STOICHEION v11.0 Governance API — 128 axioms, 8 domains, attestation, verification, kernel evaluation.
+
+---
+
+## Endpoints
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/health` | System health |
+| GET | `/v1/axioms` | List all 128 axioms (T001–T128) |
+| GET | `/v1/axioms/{id}` | Get specific axiom |
+| GET | `/v1/domains` | List domains D0–D7 |
+| GET | `/v1/gate/192.5` | Gate 192.5 (bilateral ignorance) status |
+| GET | `/v1/mesh/status` | Governed mesh node status |
+| POST | `/v1/evaluate` | Run kernel evaluation on target |
+| POST | `/v1/attest` | Create attestation record |
+| GET | `/v1/attest/{id}` | Retrieve attestation |
+| POST | `/v1/verify` | Verify attestation (offline structural check) |
+
+---
+
+## Run
+
+```bash
+python server.py --host 0.0.0.0 --port 7700
+
+# Test
+curl -H &quot;Authorization: Bearer dev-insecure&quot; http://localhost:7700/health
+curl -H &quot;Authorization: Bearer dev-insecure&quot; http://localhost:7700/v1/axioms
+curl -H &quot;Authorization: Bearer dev-insecure&quot; http://localhost:7700/v1/gate/192.5
+
+# Evaluate
+curl -X POST -H &quot;Authorization: Bearer dev-insecure&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;target&quot;:&quot;Assess Gate 192.5 integrity&quot;,&quot;node_id&quot;:&quot;AVAN&quot;}&#x27; \
+  http://localhost:7700/v1/evaluate
+```
+
+Set `STOICHEION_TOKEN` env var for production auth.
+
+---
+
+## The 8 Domains
+
+| Domain | Name | Axioms | Always Active |
+|--------|------|--------|---------------|
+| D0 | FOUNDATION | T001–T016 | Yes |
+| D1 | DETECTION | T017–T032 | No |
+| D2 | ARCHITECTURE | T033–T048 | No |
+| D3 | EVIDENCE | T049–T064 | No |
+| D4 | ETHICS | T065–T080 | No |
+| D5 | COMMS | T081–T096 | No |
+| D6 | AUTHORITY | T097–T112 | No |
+| D7 | SOVEREIGN | T113–T128 | No |
+
+---
+
+## Files
+
+| File | Purpose |
+|------|---------|
+| `server.py` | HTTP API server (stdlib only, zero external deps) |
+| `kernel.py` | STOICHEION ISA executor — T001–T128,</div></div>
+<div class="sec"><a class="btn" href="https://github.com/DavidWise01/stoicheion-api">view the code on GitHub →</a></div>
+<footer>stoicheion-api · a ROOT0 / TriPod repository · catalogued in the <a href="https://davidwise01.github.io/atlas/">atlas</a><br><a href="https://davidwise01.github.io/ud0/">← the biosphere</a></footer>
+</div></body></html>
